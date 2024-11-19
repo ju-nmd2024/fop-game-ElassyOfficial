@@ -90,7 +90,7 @@ function explosion()
 
     fill (300, 0, 0);
     ellipse (200, 400, 20, 20); 
-}
+} //ugly explosion thing used when you loose
 
 function draw(){
     
@@ -100,7 +100,7 @@ function draw(){
     else if (state === "game") {
         drawGame();
     }
-}
+} //very short draw function, works as a "hub" for the game states
 
 function drawStartScreen(){
     background(130, 180, 300);
@@ -116,9 +116,7 @@ function drawStartScreen(){
     textSize(25);
     fill (100);
     text("Press any button to Play", 130, 370, 400);
-
-
-}
+} //main menu
 
 function drawGame(){
     background(130, 180, 300);
@@ -143,19 +141,28 @@ function drawGame(){
 
         if (yposition > 360) //win and lose condition
         {
-            if (fallSpeed > 2)
+            if (fallSpeed > 2.5)
             {
-                gameRunning = false; 
-                fallSpeed = 0;  
-                console.log("boom");
+                fallSpeed = 0;
                 youLost = true;
+                gameRunning = false;
+                textSize(90);
+                fill(300, 0, 0);
+                text("YOU LOST", 20, 50, 500);
             }
             else 
             {
                 gameRunning = false;
                 fallSpeed = 0;
-                console.log("ez");
+                textSize(90);
+                fill(0, 200, 0);
+                text("YOU WON", 20, 50, 500);
             }
+
+            state = "restart"; //allows for the user to restart (duh)
+            textSize(25);
+            fill (0);
+            text("Press any button to Play Again", 90, 170, 400); 
 
         }
     }
@@ -170,12 +177,23 @@ function drawGame(){
         fallSpeed = 0;
     }
 }
+function resetGame() {
+    fallSpeed = 3;
+    yposition = 0;
+    gameRunning = true;
+    youLost = false;
+} //resets all values changed when game is played to original states
 
 function keyPressed() {
     if (state === "start") 
     {
         state = "game"; 
     }
-}
+    if (state === "restart")
+    {
+        resetGame();
+        state = "game";
+    } 
+}//changes the game state from menu screens to gameplay
 
 
