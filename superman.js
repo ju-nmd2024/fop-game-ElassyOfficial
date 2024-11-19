@@ -5,6 +5,8 @@ let DecelSpeed = 0.6; //short for deceleration rate
 let gameRunning = true; //boolean for when superman has landed
 let youLost = false; //boolean for loss trigger -> explosion
 
+let state = "start"; //Used to determine if the user is in the main menu or in game.
+
 noStroke();
 
 function setup()
@@ -17,7 +19,7 @@ function car()
     fill (100);
     rect (170, 400, 110, 60);
 
-    fill (100);
+    fill (100); 
     triangle (170, 400, 130, 440, 170, 440);
     
     fill (100);
@@ -90,15 +92,42 @@ function explosion()
     ellipse (200, 400, 20, 20); 
 }
 
-function draw()
-{
+function draw(){
+    
+    if (state === "start") {
+        drawStartScreen();
+    } 
+    else if (state === "game") {
+        drawGame();
+    }
+}
+
+function drawStartScreen(){
     background(130, 180, 300);
+    superman(100, 230);
+
+    fill(255);
+    ellipse (260, 110, 500, 100);
+    fill(255);
+    triangle(200, 100, 400, 100, 110, 200);
+    textSize(30);
+    fill(0);
+    text("Welcome to Superman Landing!", 40, 100, 600);
+    textSize(25);
+    fill (100);
+    text("Press any button to Play", 130, 370, 400);
 
 
-    fallSpeed = constrain(fallSpeed, -10, 15);
+}
+
+function drawGame(){
+    background(130, 180, 300);
+    fallSpeed = constrain(fallSpeed, -10, 15); //limits the fallspeed
 
     superman(200, yposition);
     car();
+
+
 
     if (gameRunning === true){
         if (keyIsDown(32))    
@@ -140,8 +169,13 @@ function draw()
         yposition = 0;
         fallSpeed = 0;
     }
-
 }
 
+function keyPressed() {
+    if (state === "start") 
+    {
+        state = "game"; 
+    }
+}
 
 
