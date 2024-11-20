@@ -109,7 +109,7 @@ function drawStartScreen(){
     fill(255);
     ellipse (260, 110, 500, 100);
     fill(255);
-    triangle(200, 100, 400, 100, 110, 200);
+    triangle(200, 160, 240, 160, 110, 200);
     textSize(30);
     fill(0);
     text("Welcome to Superman Landing!", 40, 100, 600);
